@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  hugo:
+    image: klakegg/hugo:ext
+    container_name: &_hugo hugo
+    command: server
+    volumes:
+      - .:/src
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    networks:
+      - web
+      - local
+    environment:
+      - HUGO_ENV=production
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - traefik.http.routers.*_hugo.tls=true
+      - traefik.http.routers.*_hugo.entrypoints=https
+      - traefik.http.routers.*_hugo.rule=Host(`localhost`)
+      - traefik.http.services.*_hugo.loadbalancer.server.port=1313
+      - traefik.http.routers.*_hugo.tls.certresolver=cloudflare
+
+networks:
+  web:
+    external: true
+  local:
+    external: true

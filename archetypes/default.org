@@ -1,0 +1,14 @@
+#+title: {{ replace .Name "-" " " | title }}
+#+subtitle:
+#+author: Jacob Boes
+#+date: {{ .Date }}
+#+lastmod: {{ .Date }}
+#+draft: true
+#+description:
+#+images[]:
+#+tags[]:
+#+categories[]:
+#+featuredImage: img/banner.webp
+#+featuredImagePreview: img/banner.webp
+
+# more
